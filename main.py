@@ -2,13 +2,17 @@ import speech_recognition as sr
 import openai
 from datetime import datetime
 import os
+from dotenv import load_dotenv
+
+# Cargar variables de entorno desde el archivo .env
+load_dotenv()
+
+# Obtener la clave de API de OpenAI desde las variables de entorno
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Configuración inicial
 recognizer = sr.Recognizer()
 recognizer.energy_threshold = 4000
-
-# Asegúrate de reemplazar la clave de API con una clave válida y segura.
-openai.api_key = "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"
 
 # Historia de la conversación
 historico_mensajes = []
@@ -24,11 +28,9 @@ def consultar_asistente(mensajes):
 
 while True:
     with sr.Microphone() as source:
-        
         try:
-
             print("Escuchando...")
-            recognizer.adjust_for_ambient_noise(source)  
+            recognizer.adjust_for_ambient_noise(source)
             audio = recognizer.listen(source, timeout=5, phrase_time_limit=10)
             text = recognizer.recognize_google(audio, language="es-ES")
             
@@ -62,8 +64,8 @@ while True:
                 os.system('cls' if os.name == 'nt' else 'clear')
                  
         except sr.UnknownValueError:
-                continue
+            continue
         except sr.RequestError as e:
-                print(f"Error al conectar con el servicio de reconocimiento: {e}")
+            print(f"Error al conectar con el servicio de reconocimiento: {e}")
         except Exception as e:
-                print(f"Ocurrió un error inesperado: {e}")
+            print(f"Ocurrió un error inesperado: {e}")
