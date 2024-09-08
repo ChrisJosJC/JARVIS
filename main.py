@@ -28,7 +28,8 @@ def consultar_asistente(mensajes):
     respuesta = openai.ChatCompletion.create(
         model="gpt-4",
         messages=mensajes,
-        max_tokens=150
+        max_tokens=150,
+        temperature=1.0
     )
     return respuesta.choices[0].message['content'].strip()
 
