@@ -20,7 +20,7 @@ palabras_clave = ['cerrar', 'salir', 'apagar']
 
 def consultar_asistente(mensajes):
     respuesta = openai.ChatCompletion.create(
-        model="gpt-4",
+        model="gpt-4o-mini-2024-07-18",
         messages=mensajes,
         max_tokens=150
     )
